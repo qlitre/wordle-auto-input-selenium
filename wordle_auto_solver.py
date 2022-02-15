@@ -1,13 +1,12 @@
 """
 Wordleをseleniumで自動入力するファイル
-今のところmicrosoft edgeで動作させています
 """
 
-from selenium import webdriver
-from settings import EDGE_DRIVER, WORDLE_URL, WORDLE_ANSWER_TEXT
-from selenium.webdriver.edge import service as fs
+from settings import WORDLE_URL, WORDLE_ANSWER_TEXT
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from chrome import chrome_browser
+from edge import edge_browser
 import time
 import pandas as pd
 import sys
@@ -146,16 +145,11 @@ class Results:
             yield col_name, char, hint
 
 
-def job(first_input):
+def job(browser, first_input):
     """メインジョブ"""
 
     # 単語リストデータ
     df = create_df()
-
-    # browserを起動
-    edge_driver = EDGE_DRIVER
-    edge_service = fs.Service(executable_path=edge_driver)
-    browser = webdriver.Edge(service=edge_service)
 
     # wordleページを開く
     open_wordle(browser)
@@ -218,5 +212,7 @@ def job(first_input):
 
 
 if __name__ == '__main__':
-    first = 'mamma'
-    job(first)
+    # ブラウザを指定
+    _browser = chrome_browser()
+    first = 'puppy'
+    job(browser=_browser, first_input=first)
