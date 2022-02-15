@@ -214,5 +214,6 @@ def job(browser, first_input):
 if __name__ == '__main__':
     # ブラウザを指定
     _browser = chrome_browser()
+    # 最初の単語
     first = 'puppy'
     job(browser=_browser, first_input=first)
